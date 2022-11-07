@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "Lib4711.Blazor": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:6861;http://localhost:6862"
+    }
+  }
+}
