@@ -3,7 +3,7 @@ using Lib4711.Core.Storage;
 
 namespace Lib4711.Blazor.Storage
 {
-    internal class BrowserLocalStorageKeyValueStorage : IAsyncKeyValueStorage
+    public class BrowserLocalStorageKeyValueStorage : IAsyncKeyValueStorage
     {
         private readonly ProtectedLocalStorage browserLocalStorage;
         private readonly string storageName;

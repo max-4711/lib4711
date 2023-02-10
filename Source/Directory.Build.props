@@ -1,6 +1,6 @@
 <Project>
 <PropertyGroup>
-    <LibVersion>1.0.1</LibVersion>
+    <LibVersion>1.0.2</LibVersion>
 
     <PackageVersion>$(LibVersion)</PackageVersion>
     <AssemblyVersion>$(LibVersion)</AssemblyVersion>

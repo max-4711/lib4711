@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -7,8 +7,21 @@
 	<IsPackable>true</IsPackable>
   </PropertyGroup>
 
+	<ItemGroup>
+		<SupportedPlatform Include="browser" />
+	</ItemGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\Lib4711.Core\Lib4711.Core.csproj" />
   </ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.13" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<FrameworkReference Include="Microsoft.AspNetCore.App" Version="6.0.13" />
+		<!--<FrameworkReference Include="Microsoft.NETCore.App" Version="2.2.8" />-->
+	</ItemGroup>
 
 </Project>
