@@ -1,0 +1,105 @@
+﻿@if (!this.IsHidden)
+{
+    <div class="@this.AlertClass" role="alert">
+        @this.TextPrefix@this.Text
+    </div>
+}
+
+
+@code {
+    [Parameter]
+    public string Text { get; set; } = "Hinweis";
+
+    private bool isHidden = false;
+    [Parameter]
+    public bool IsHidden
+    {
+        get => this.isHidden;
+        set
+        {
+            if (this.isHidden != value)
+            {
+                this.isHidden = value;
+                this.TriggerHideAfterTimeout();
+            }
+        }
+    }
+
+    [Parameter]
+    public StatusBoxType Type { get; set; } = StatusBoxType.Info;
+
+    [Parameter]
+    public uint? DisappearTimeoutSeconds { get; set; } = null;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+
+        await this.TriggerHideAfterTimeoutAsync();
+    }
+
+    private void TriggerHideAfterTimeout()
+    {
+        Task.Run(async () => await this.TriggerHideAfterTimeoutAsync());
+    }
+
+    private async Task TriggerHideAfterTimeoutAsync()
+    {
+        if (!this.isHidden && this.DisappearTimeoutSeconds != null && this.DisappearTimeoutSeconds > 0)
+        {
+            await Task.Delay(TimeSpan.FromSeconds(this.DisappearTimeoutSeconds.Value));
+
+            this.isHidden = true;
+            await base.InvokeAsync(() => { base.StateHasChanged(); });
+        }
+    }
+
+    private string AlertClass
+    {
+        get
+        {
+            switch (this.Type)
+            {
+                case StatusBoxType.Success:
+                    return "alert alert-success";
+                case StatusBoxType.Warning:
+                    return "alert alert-warning";
+                case StatusBoxType.Danger:
+                    return "alert alert-danger";
+                case StatusBoxType.Error:
+                    return "alert alert-danger";
+                default: //Info
+                    return "alert alert-info";
+            }
+        }
+    }
+
+    private string TextPrefix
+    {
+        get
+        {
+            switch (this.Type)
+            {
+                case StatusBoxType.Success:
+                    return "✔ ";
+                case StatusBoxType.Warning:
+                    return "⚠ ";
+                case StatusBoxType.Danger:
+                    return "❗ ";
+                case StatusBoxType.Error:
+                    return "❌ ";
+                default: //Info
+                    return "";
+            }
+        }
+    }
+
+    public enum StatusBoxType
+    {
+        Info,
+        Success,
+        Warning,
+        Danger,
+        Error
+    }
+}
