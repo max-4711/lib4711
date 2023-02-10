@@ -29,4 +29,4 @@ jobs:
     - name: Build nuget package
       run: dotnet pack Source -c Release -o nugetout
     - name: Publish nuget
-      run: dotnet nuget push nugetout/*.nupkg -k ${{ secrets.NUGETORG_PKG_PUSH_SECRET }} -s https://api.nuget.org/v3/index.json --skip-duplicate --no-symbols true
+      run: dotnet nuget push nugetout/*.nupkg -k ${{ secrets.NUGETORG_PKG_PUSH_SECRET }} -s https://api.nuget.org/v3/index.json --skip-duplicate --no-symbols
