@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lib4711.Server", "Lib4711.S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lib4711.Tests", "Lib4711.Tests\Lib4711.Tests.csproj", "{1DA88A53-DFDB-4CDB-97C6-9DA6939A68DD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lib4711.Desktop", "Lib4711.Desktop\Lib4711.Desktop.csproj", "{F21D02C5-5CC8-496E-9311-E3616FB593B5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lib4711.Desktop.Windows", "Lib4711.Desktop.Windows\Lib4711.Desktop.Windows.csproj", "{FF5FAA6E-13AD-4D3C-8238-B3D35BAB0275}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,14 @@ Global
 		{1DA88A53-DFDB-4CDB-97C6-9DA6939A68DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1DA88A53-DFDB-4CDB-97C6-9DA6939A68DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1DA88A53-DFDB-4CDB-97C6-9DA6939A68DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F21D02C5-5CC8-496E-9311-E3616FB593B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F21D02C5-5CC8-496E-9311-E3616FB593B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F21D02C5-5CC8-496E-9311-E3616FB593B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F21D02C5-5CC8-496E-9311-E3616FB593B5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF5FAA6E-13AD-4D3C-8238-B3D35BAB0275}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF5FAA6E-13AD-4D3C-8238-B3D35BAB0275}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF5FAA6E-13AD-4D3C-8238-B3D35BAB0275}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF5FAA6E-13AD-4D3C-8238-B3D35BAB0275}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

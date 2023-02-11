@@ -1,0 +1,25 @@
+﻿<UserControl x:Class="Lib4711.Desktop.Windows.Controls.Charts.LineChart.XAxisLabels"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:ClassModifier="internal"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             x:Name="XAxis"
+             mc:Ignorable="d" 
+              d:DesignHeight="40" d:DesignWidth="20">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolConverter"></BooleanToVisibilityConverter>
+    </UserControl.Resources>
+    <Canvas>
+        <Canvas.Children>
+            <Polyline x:Name="XLine" Points="0,0 0,5" Stroke="{Binding RelativeSource={RelativeSource 
+                            AncestorType=UserControl}, Path=LineColor}"  StrokeThickness="1"/>
+            <TextBlock x:Name="MyLabel" Width="50" Margin="-25,0,0,0" TextAlignment="Center" Text="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=XLabel}" Visibility="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=XLabelVisible, Converter={StaticResource BoolConverter}}" Canvas.Top="10">
+                <TextBlock.LayoutTransform>
+                    <RotateTransform Angle="{Binding RelativeSource={RelativeSource 
+                            AncestorType=UserControl}, Path=LabelAngle}"></RotateTransform>
+                </TextBlock.LayoutTransform>
+            </TextBlock>
+        </Canvas.Children>
+    </Canvas>
+</UserControl>

@@ -7,11 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Lib4711.Core\Lib4711.Core.csproj" />
+    <Folder Include="Storage\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Storage\" />
+    <ProjectReference Include="..\Lib4711.Core\Lib4711.Core.csproj" />
   </ItemGroup>
 
 </Project>
