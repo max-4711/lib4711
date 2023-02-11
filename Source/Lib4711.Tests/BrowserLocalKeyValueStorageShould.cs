@@ -24,7 +24,7 @@ namespace Lib4711.Tests
         [TestMethod]
         public async Task RequestDeletionWithStorageAndKeyName()
         {
-            var testObject = new BrowserLocalStorageKeyValueStorage(this.browserStorageMock.Object, SAMPLE_STORAGE_NAME);
+            var testObject = new BrowserLocalStorageKeyValueStorage(this.browserStorageMock!.Object, SAMPLE_STORAGE_NAME);
 
             await testObject.DeleteValueAsync(SAMPLE_KEY);
 

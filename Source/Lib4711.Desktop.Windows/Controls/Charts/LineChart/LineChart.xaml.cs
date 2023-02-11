@@ -11,16 +11,16 @@ namespace Lib4711.Desktop.Windows.Controls.Charts.LineChart
 {
     public partial class LineChart : UserControl
     {
-        private static List<SolidColorBrush> DistinctColorList = new List<SolidColorBrush>();
+        private static readonly List<SolidColorBrush> distinctColorList = new();
 
         public LineChart()
         {
             InitializeComponent();
 
-            ColourGenerator generator = new ColourGenerator();
+            ColourGenerator generator = new();
             for (int i = 0; i < 20; i++)
             {
-                DistinctColorList.Add(new SolidColorBrush((Color)ColorConverter.ConvertFromString("#" + generator.NextColour())));
+                distinctColorList.Add(new SolidColorBrush((Color)ColorConverter.ConvertFromString("#" + generator.NextColour())));
             }
         }
         private ObservableCollection<YAxisLabels> YItems
@@ -73,7 +73,7 @@ namespace Lib4711.Desktop.Windows.Controls.Charts.LineChart
                 if (MyClass.ItemsSource == null) return;
                 foreach (var ClassItem in MyClass.ItemsSource)
                 {
-                    IEnumerable collectionItem = GetPropValue(ClassItem, MyClass.DataCollectionName) as IEnumerable ?? new object[] {};
+                    IEnumerable collectionItem = GetPropValue(ClassItem, MyClass.DataCollectionName) as IEnumerable ?? Array.Empty<object>();
                     foreach (var item in collectionItem)
                     {
                         double value = GetPropValue(item, MyClass.DisplayMemberValues) as double? ?? 0.0d;
@@ -105,21 +105,21 @@ namespace Lib4711.Desktop.Windows.Controls.Charts.LineChart
             }
         }
 
-        public static void SetUpGraph(LineChart sender, IEnumerable? ItemsSource)
+        public static void SetUpGraph(LineChart sender, IEnumerable? itemsSource)
         {
-            List<PointCollection> ListOfChartCurves = new List<PointCollection>();
-            List<double> origianlValues = new List<double>();
+            List<PointCollection> listOfChartCurves = new();
+            List<double> originalValues = new();
 
-            if (ItemsSource == null) return;
+            if (itemsSource == null) return;
 
             //Loop trough all the sources
-            foreach (object? classItem in ItemsSource)
+            foreach (object? classItem in itemsSource)
             {
-                PointCollection pointsOnChart = new PointCollection();
+                PointCollection pointsOnChart = new();
                 int x = 0;
 
                 // Get the Collection of dataitems from the current source
-                IEnumerable collectionItems = GetPropValue(classItem, sender.DataCollectionName) as IEnumerable ?? new object[] {};
+                IEnumerable collectionItems = GetPropValue(classItem, sender.DataCollectionName) as IEnumerable ?? Array.Empty<object>();
 
                 // For all the chart points, get the relevant Y values
                 foreach (object? item in collectionItems)
@@ -130,17 +130,17 @@ namespace Lib4711.Desktop.Windows.Controls.Charts.LineChart
                     if (sender.XMin == sender.XMax)
                     {
 
-                        if (yValues is double)
+                        if (yValues is double @double)
                         {
-                            origianlValues.Add((double)yValues);
-                            if (double.IsInfinity((double)yValues) || double.IsNaN((double)yValues) || double.IsNegativeInfinity((double)yValues) || double.IsPositiveInfinity((double)yValues))
+                            originalValues.Add(@double);
+                            if (double.IsInfinity(@double) || double.IsNaN(@double) || double.IsNegativeInfinity(@double) || double.IsPositiveInfinity(@double))
                             {
                                 pointsOnChart.Add(new Point(0, double.NaN));
 
                             }
                             else
                             {
-                                double YValue = ((double)yValues - sender.YMin) / (sender.YMax - sender.YMin) * sender.PlotHeight;
+                                double YValue = (@double - sender.YMin) / (sender.YMax - sender.YMin) * sender.PlotHeight;
                                 pointsOnChart.Add(new Point(0, YValue));
                             }
                         }
@@ -148,17 +148,17 @@ namespace Lib4711.Desktop.Windows.Controls.Charts.LineChart
                     else if (sender.XMin <= x && x <= sender.XMax)
                     {
 
-                        if (yValues is double)
+                        if (yValues is double @double)
                         {
-                            origianlValues.Add((double)yValues);
-                            if (double.IsInfinity((double)yValues) || double.IsNaN((double)yValues) || double.IsNegativeInfinity((double)yValues) || double.IsPositiveInfinity((double)yValues))
+                            originalValues.Add(@double);
+                            if (double.IsInfinity(@double) || double.IsNaN(@double) || double.IsNegativeInfinity(@double) || double.IsPositiveInfinity(@double))
                             {
                                 pointsOnChart.Add(new Point(0, double.NaN));
 
                             }
                             else
                             {
-                                double YValue = ((double)yValues - sender.YMin) / (sender.YMax - sender.YMin) * sender.PlotHeight;
+                                double YValue = (@double - sender.YMin) / (sender.YMax - sender.YMin) * sender.PlotHeight;
                                 pointsOnChart.Add(new Point(0, YValue));
                             }
                         }
@@ -167,25 +167,25 @@ namespace Lib4711.Desktop.Windows.Controls.Charts.LineChart
 
                     x++;
                 }
-                ListOfChartCurves.Add(pointsOnChart);
+                listOfChartCurves.Add(pointsOnChart);
             }
 
-            ObservableCollection<FrameworkElement> items = new ObservableCollection<FrameworkElement>();
+            ObservableCollection<FrameworkElement> items = new();
 
-            for (int k = 0; k < ListOfChartCurves.Count; k++)
+            for (int k = 0; k < listOfChartCurves.Count; k++)
             {
-                for (int i = 0; i < ListOfChartCurves[k].Count; i++)
+                for (int i = 0; i < listOfChartCurves[k].Count; i++)
                 {
-                    double pos = (double)i * sender.PlotWidth / (double)ListOfChartCurves[k].Count;
-                    ListOfChartCurves[k][i] = new Point(pos, ListOfChartCurves[k][i].Y);
+                    double pos = (double)i * sender.PlotWidth / (double)listOfChartCurves[k].Count;
+                    listOfChartCurves[k][i] = new Point(pos, listOfChartCurves[k][i].Y);
                 }
             }
 
-            for (int k = 0; k < ListOfChartCurves.Count; k++)
+            for (int k = 0; k < listOfChartCurves.Count; k++)
             {
-                PointCollection PointsOnChart = ListOfChartCurves[k];
-                List<PointCollection> MyLines = new List<PointCollection>();
-                PointCollection CurrentCollection = new PointCollection();
+                PointCollection PointsOnChart = listOfChartCurves[k];
+                List<PointCollection> MyLines = new();
+                PointCollection CurrentCollection = new();
 
                 // Create lines even if points are disjoint/missing
                 for (int i = 0; i < PointsOnChart.Count; i++)
@@ -214,11 +214,11 @@ namespace Lib4711.Desktop.Windows.Controls.Charts.LineChart
                 //Draw all the lines found in the curve
                 foreach (PointCollection item in MyLines)
                 {
-                    Polyline Curve = new Polyline
+                    Polyline Curve = new()
                     {
                         Points = item,
                         StrokeThickness = 4,
-                        Stroke = DistinctColorList[k]
+                        Stroke = distinctColorList[k]
                     };
                     items.Add(Curve);
                 }                
@@ -229,29 +229,29 @@ namespace Lib4711.Desktop.Windows.Controls.Charts.LineChart
 
         private static void ItemsSource_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e, IEnumerable eNewValue)
         {
-            var MyClass = (LineChart)sender;
+            var myClass = (LineChart)sender;
 
             if (e.Action == NotifyCollectionChangedAction.Add)
             {
-                MyClass.CurveVisibility.Add(new GraphVisibility()
+                myClass.CurveVisibility.Add(new GraphVisibility()
                 {
-                    BackColor = DistinctColorList[MyClass.CurveVisibility.Count],
+                    BackColor = distinctColorList[myClass.CurveVisibility.Count],
                 });
-                ((INotifyPropertyChanged)MyClass.CurveVisibility[MyClass.CurveVisibility.Count - 1]).PropertyChanged
-                    += (s, ee) => OnCurveVisibilityChanged(MyClass, eNewValue);
+                ((INotifyPropertyChanged)myClass.CurveVisibility[^1]).PropertyChanged
+                    += (s, ee) => OnCurveVisibilityChanged(myClass, eNewValue);
             }
             else if (e.Action == NotifyCollectionChangedAction.Remove)
             {
-                ((INotifyPropertyChanged)MyClass.CurveVisibility[e.OldStartingIndex]).PropertyChanged
-                    -= (s, ee) => OnCurveVisibilityChanged(MyClass, eNewValue);
-                MyClass.CurveVisibility.RemoveAt(e.OldStartingIndex);
+                ((INotifyPropertyChanged)myClass.CurveVisibility[e.OldStartingIndex]).PropertyChanged
+                    -= (s, ee) => OnCurveVisibilityChanged(myClass, eNewValue);
+                myClass.CurveVisibility.RemoveAt(e.OldStartingIndex);
             }
 
 
-            if (MyClass.DisplayMemberValues != "" && MyClass.DataCollectionName != "")
+            if (myClass.DisplayMemberValues != "" && myClass.DataCollectionName != "")
             {
-                SetUpYAxis(MyClass);
-                SetUpGraph(MyClass, eNewValue);
+                SetUpYAxis(myClass);
+                SetUpGraph(myClass, eNewValue);
             }
         }
 
@@ -268,9 +268,9 @@ namespace Lib4711.Desktop.Windows.Controls.Charts.LineChart
             {
                 int i = MyBasicChart.CurveVisibility.Count;
                 // Set up a Notification if the IsChecked property is changed
-                MyBasicChart.CurveVisibility.Add(new GraphVisibility() { BackColor = DistinctColorList[i] });
+                MyBasicChart.CurveVisibility.Add(new GraphVisibility() { BackColor = distinctColorList[i] });
 
-                ((INotifyPropertyChanged)MyBasicChart.CurveVisibility[MyBasicChart.CurveVisibility.Count - 1]).PropertyChanged +=
+                ((INotifyPropertyChanged)MyBasicChart.CurveVisibility[^1]).PropertyChanged +=
                     (s, ee) => OnCurveVisibilityChanged(MyBasicChart, (IEnumerable)e.NewValue);
             }
 
@@ -278,16 +278,16 @@ namespace Lib4711.Desktop.Windows.Controls.Charts.LineChart
             {
                 // Assuming that the curves are binded using an ObservableCollection, 
                 // it needs to update the Layout if items are added, removed etc.
-                if (e.NewValue is INotifyCollectionChanged)
-                    ((INotifyCollectionChanged)e.NewValue).CollectionChanged += (s, ee) =>
+                if (e.NewValue is INotifyCollectionChanged changed)
+                    changed.CollectionChanged += (s, ee) =>
                     ItemsSource_CollectionChanged(MyBasicChart, ee, (IEnumerable)e.NewValue);
             }
 
             if (e.OldValue != null)
             {
                 // Unhook the Event
-                if (e.OldValue is INotifyCollectionChanged)
-                    ((INotifyCollectionChanged)e.OldValue).CollectionChanged -=
+                if (e.OldValue is INotifyCollectionChanged changed)
+                    changed.CollectionChanged -=
                         (s, ee) => ItemsSource_CollectionChanged(MyBasicChart, ee, (IEnumerable)e.OldValue);
 
             }
@@ -484,7 +484,7 @@ namespace Lib4711.Desktop.Windows.Controls.Charts.LineChart
         public class ColourGenerator
         {
             private int index = 0;
-            private IntensityGenerator intensityGenerator = new IntensityGenerator();
+            private readonly IntensityGenerator intensityGenerator = new();
 
             public string NextColour()
             {
@@ -499,23 +499,23 @@ namespace Lib4711.Desktop.Windows.Controls.Charts.LineChart
         {
             public static string NextPattern(int index)
             {
-                switch (index % 7)
+                return (index % 7) switch
                 {
-                    case 0: return "{0}0000";
-                    case 1: return "00{0}00";
-                    case 2: return "0000{0}";
-                    case 3: return "{0}{0}00";
-                    case 4: return "{0}00{0}";
-                    case 5: return "00{0}{0}";
-                    case 6: return "{0}{0}{0}";
-                    default: throw new Exception("Math error");
-                }
+                    0 => "{0}0000",
+                    1 => "00{0}00",
+                    2 => "0000{0}",
+                    3 => "{0}{0}00",
+                    4 => "{0}00{0}",
+                    5 => "00{0}{0}",
+                    6 => "{0}{0}{0}",
+                    _ => throw new Exception("Math error"),
+                };
             }
         }
 
         public class IntensityGenerator
         {
-            private IntensityValueWalker walker;
+            private IntensityValueWalker? walker;
             private int current;
 
             public string NextIntensity(int index)
@@ -545,10 +545,10 @@ namespace Lib4711.Desktop.Windows.Controls.Charts.LineChart
         public class IntensityValue
         {
 
-            private IntensityValue mChildA;
-            private IntensityValue mChildB;
+            private IntensityValue? mChildA;
+            private IntensityValue? mChildB;
 
-            public IntensityValue(IntensityValue parent, int value, int level)
+            public IntensityValue(IntensityValue? parent, int value, int level)
             {
                 if (level > 7) throw new Exception("There are no more colours left");
                 Value = value;
@@ -558,13 +558,13 @@ namespace Lib4711.Desktop.Windows.Controls.Charts.LineChart
 
             public int Level { get; set; }
             public int Value { get; set; }
-            public IntensityValue Parent { get; set; }
+            public IntensityValue? Parent { get; set; }
 
             public IntensityValue ChildA
             {
                 get
                 {
-                    return mChildA ?? (mChildA = new IntensityValue(this, this.Value - (1 << (7 - Level)), Level + 1));
+                    return mChildA ??= new IntensityValue(this, this.Value - (1 << (7 - Level)), Level + 1);
                 }
             }
 
@@ -572,7 +572,7 @@ namespace Lib4711.Desktop.Windows.Controls.Charts.LineChart
             {
                 get
                 {
-                    return mChildB ?? (mChildB = new IntensityValue(this, Value + (1 << (7 - Level)), Level + 1));
+                    return mChildB ??= new IntensityValue(this, Value + (1 << (7 - Level)), Level + 1);
                 }
             }
         }
