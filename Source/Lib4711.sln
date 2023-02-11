@@ -7,6 +7,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lib4711.Core", "Lib4711.Cor
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lib4711.Blazor", "Lib4711.Blazor\Lib4711.Blazor.csproj", "{AC70334D-1EB3-43A5-9EA8-8EDF09F6C773}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lib4711.Server", "Lib4711.Server\Lib4711.Server.csproj", "{79BD44D1-1283-490A-BC02-A71EFE17CF6F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lib4711.Tests", "Lib4711.Tests\Lib4711.Tests.csproj", "{1DA88A53-DFDB-4CDB-97C6-9DA6939A68DD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{AC70334D-1EB3-43A5-9EA8-8EDF09F6C773}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AC70334D-1EB3-43A5-9EA8-8EDF09F6C773}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AC70334D-1EB3-43A5-9EA8-8EDF09F6C773}.Release|Any CPU.Build.0 = Release|Any CPU
+		{79BD44D1-1283-490A-BC02-A71EFE17CF6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79BD44D1-1283-490A-BC02-A71EFE17CF6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79BD44D1-1283-490A-BC02-A71EFE17CF6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79BD44D1-1283-490A-BC02-A71EFE17CF6F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1DA88A53-DFDB-4CDB-97C6-9DA6939A68DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1DA88A53-DFDB-4CDB-97C6-9DA6939A68DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1DA88A53-DFDB-4CDB-97C6-9DA6939A68DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1DA88A53-DFDB-4CDB-97C6-9DA6939A68DD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

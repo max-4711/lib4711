@@ -24,4 +24,8 @@
 		<!--<FrameworkReference Include="Microsoft.NETCore.App" Version="2.2.8" />-->
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Properties\" />
+	</ItemGroup>
+
 </Project>

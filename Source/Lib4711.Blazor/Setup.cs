@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Lib4711.Blazor.Storage;
+using Lib4711.Core.Storage;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Lib4711.Blazor
 {
@@ -6,7 +8,7 @@ namespace Lib4711.Blazor
     {
         public static IServiceCollection SetupLib4711Blazor(IServiceCollection serviceCollection)
         {
-            //TODO: Setup?
+            serviceCollection.AddSingleton<IKeyValueStorageCreator, BrowserLocalStorageKeyValueStorageCreator>();
 
             return serviceCollection;
         }

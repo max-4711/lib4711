@@ -3,7 +3,7 @@
     /// <summary>
     /// Provides functionality to obtain an <see cref="IAsyncKeyValueStorage"/>.
     /// </summary>
-    public interface IKeyValueCreator
+    public interface IKeyValueStorageCreator
     {
         /// <summary>
         /// Gets (or creates, if it's not already existing) the unnamed/default storage of the application.
