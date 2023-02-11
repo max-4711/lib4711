@@ -32,7 +32,7 @@ namespace Lib4711.Desktop.Windows.Controls.Charts.LineChart
         // Using a DependencyProperty as the backing store for YItems.  This enables animation, styling, binding, etc...
         private static readonly DependencyProperty YItemsProperty =
             DependencyProperty.Register("YItems", typeof(ObservableCollection<YAxisLabels>),
-                typeof(BasicChart), new PropertyMetadata(new ObservableCollection<YAxisLabels>()));
+                typeof(LineChart), new PropertyMetadata(new ObservableCollection<YAxisLabels>()));
 
         private ObservableCollection<GraphVisibility> CurveVisibility
         {
@@ -43,14 +43,14 @@ namespace Lib4711.Desktop.Windows.Controls.Charts.LineChart
         // Using a DependencyProperty as the backing store for MyCheckBoxes.  This enables animation, styling, binding, etc...
         private static readonly DependencyProperty CurveVisibilityProperty =
             DependencyProperty.Register("CurveVisibility", typeof(ObservableCollection<GraphVisibility>),
-                typeof(BasicChart), new PropertyMetadata(new ObservableCollection<GraphVisibility>()));
+                typeof(LineChart), new PropertyMetadata(new ObservableCollection<GraphVisibility>()));
 
         private static object GetPropValue(object src, string propName)
         {
             return src.GetType().GetProperty(propName).GetValue(src, null);
         }
 
-        public static void Redraw(BasicChart basicChart)
+        public static void Redraw(LineChart basicChart)
         {
             basicChart.Dispatcher.Invoke(() =>
             {
@@ -59,9 +59,9 @@ namespace Lib4711.Desktop.Windows.Controls.Charts.LineChart
             });
         }
 
-        public static void SetUpYAxis(BasicChart d)
+        public static void SetUpYAxis(LineChart d)
         {
-            var MyClass = (BasicChart)d;
+            var MyClass = (LineChart)d;
 
             // Only calcualte the min and max values if AutoScale is true
             if (MyClass.AutoScale)
@@ -106,7 +106,7 @@ namespace Lib4711.Desktop.Windows.Controls.Charts.LineChart
             }
         }
 
-        public static void SetUpGraph(BasicChart sender, IEnumerable ItemsSource)
+        public static void SetUpGraph(LineChart sender, IEnumerable ItemsSource)
         {
             List<PointCollection> ListOfChartCurves = new List<PointCollection>();
             List<double> origianlValues = new List<double>();
@@ -230,7 +230,7 @@ namespace Lib4711.Desktop.Windows.Controls.Charts.LineChart
 
         private static void ItemsSource_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e, IEnumerable eNewValue)
         {
-            var MyClass = (BasicChart)sender;
+            var MyClass = (LineChart)sender;
 
             if (e.Action == NotifyCollectionChangedAction.Add)
             {
@@ -256,14 +256,14 @@ namespace Lib4711.Desktop.Windows.Controls.Charts.LineChart
             }
         }
 
-        private static void OnCurveVisibilityChanged(BasicChart sender, IEnumerable NewValues)
+        private static void OnCurveVisibilityChanged(LineChart sender, IEnumerable NewValues)
         {
             SetUpGraph(sender, NewValues);
         }
 
         private static void OnItemsSourceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var MyBasicChart = (BasicChart)d;
+            var MyBasicChart = (LineChart)d;
 
             foreach (var item in MyBasicChart.ItemsSource)
             {
@@ -327,7 +327,7 @@ namespace Lib4711.Desktop.Windows.Controls.Charts.LineChart
 
         // Using a DependencyProperty as the backing store for ItemsSource.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ItemsSourceProperty =
-            DependencyProperty.Register("ItemsSource", typeof(IEnumerable), typeof(BasicChart),
+            DependencyProperty.Register("ItemsSource", typeof(IEnumerable), typeof(LineChart),
                 new FrameworkPropertyMetadata(null,
                     new PropertyChangedCallback(OnItemsSourceChanged)));
 
@@ -346,7 +346,7 @@ namespace Lib4711.Desktop.Windows.Controls.Charts.LineChart
         // Using a DependencyProperty as the backing store for AutoScale.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty AutoScaleProperty =
             DependencyProperty.Register("AutoScale", typeof(bool),
-                typeof(BasicChart), new PropertyMetadata(true));
+                typeof(LineChart), new PropertyMetadata(true));
 
         public string DataCollectionName
         {
@@ -357,7 +357,7 @@ namespace Lib4711.Desktop.Windows.Controls.Charts.LineChart
         // Using a DependencyProperty as the backing store for DataCollectionName.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty DataCollectionNameProperty =
             DependencyProperty.Register("DataCollectionName", typeof(string),
-                typeof(BasicChart), new PropertyMetadata(""));
+                typeof(LineChart), new PropertyMetadata(""));
 
         public string DisplayMemberValues
         {
@@ -368,7 +368,7 @@ namespace Lib4711.Desktop.Windows.Controls.Charts.LineChart
         // Using a DependencyProperty as the backing store for DisplayMemberValues.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty DisplayMemberValuesProperty =
             DependencyProperty.Register("DisplayMemberValues", typeof(string),
-                typeof(BasicChart), new PropertyMetadata(""));
+                typeof(LineChart), new PropertyMetadata(""));
 
         public double XMin
         {
@@ -379,7 +379,7 @@ namespace Lib4711.Desktop.Windows.Controls.Charts.LineChart
         // Using a DependencyProperty as the backing store for XMin.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty XMinProperty =
             DependencyProperty.Register("XMin", typeof(double),
-                typeof(BasicChart), new PropertyMetadata(0d));
+                typeof(LineChart), new PropertyMetadata(0d));
 
         public double XMax
         {
@@ -390,7 +390,7 @@ namespace Lib4711.Desktop.Windows.Controls.Charts.LineChart
         // Using a DependencyProperty as the backing store for XMax.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty XMaxProperty =
             DependencyProperty.Register("XMax", typeof(double),
-                typeof(BasicChart), new PropertyMetadata(0d));
+                typeof(LineChart), new PropertyMetadata(0d));
 
         public double YMin
         {
@@ -406,7 +406,7 @@ namespace Lib4711.Desktop.Windows.Controls.Charts.LineChart
 
         private static void YAxisValuesChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            SetUpYAxis((BasicChart)d);
+            SetUpYAxis((LineChart)d);
         }
 
         public string DoubleToString
@@ -418,19 +418,19 @@ namespace Lib4711.Desktop.Windows.Controls.Charts.LineChart
         // Using a DependencyProperty as the backing store for DoubleToString.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty DoubleToStringProperty =
             DependencyProperty.Register("DoubleToString", typeof(string),
-                typeof(BasicChart), new PropertyMetadata("N2",
+                typeof(LineChart), new PropertyMetadata("N2",
                     new PropertyChangedCallback(YAxisValuesChanged)));
 
         // Using a DependencyProperty as the backing store for NumberOfYSteps.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty NumberOfYStepsProperty =
             DependencyProperty.Register("NumberOfYSteps", typeof(int),
-                typeof(BasicChart), new PropertyMetadata(5,
+                typeof(LineChart), new PropertyMetadata(5,
                     new PropertyChangedCallback(YAxisValuesChanged)));
 
         // Using a DependencyProperty as the backing store for YMin.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty YMinProperty =
             DependencyProperty.Register("YMin", typeof(double),
-                typeof(BasicChart), new PropertyMetadata(0d,
+                typeof(LineChart), new PropertyMetadata(0d,
                     new PropertyChangedCallback(YAxisValuesChanged)));
 
         public double YMax
@@ -442,7 +442,7 @@ namespace Lib4711.Desktop.Windows.Controls.Charts.LineChart
         // Using a DependencyProperty as the backing store for YMax.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty YMaxProperty =
             DependencyProperty.Register("YMax", typeof(double),
-                typeof(BasicChart), new PropertyMetadata(5d,
+                typeof(LineChart), new PropertyMetadata(5d,
                     new PropertyChangedCallback(YAxisValuesChanged)));
 
         public string ChartTitle
@@ -454,7 +454,7 @@ namespace Lib4711.Desktop.Windows.Controls.Charts.LineChart
         // Using a DependencyProperty as the backing store for ChartTitle.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ChartTitleProperty =
             DependencyProperty.Register("ChartTitle", typeof(string),
-                typeof(BasicChart), new PropertyMetadata(""));
+                typeof(LineChart), new PropertyMetadata(""));
 
         public double PlotWidth
         {
@@ -464,7 +464,7 @@ namespace Lib4711.Desktop.Windows.Controls.Charts.LineChart
 
         // Using a DependencyProperty as the backing store for PlotWidth.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty PlotWidthProperty =
-            DependencyProperty.Register("PlotWidth", typeof(double), typeof(BasicChart), new PropertyMetadata(400d));
+            DependencyProperty.Register("PlotWidth", typeof(double), typeof(LineChart), new PropertyMetadata(400d));
 
         public double PlotHeight
         {
@@ -475,7 +475,7 @@ namespace Lib4711.Desktop.Windows.Controls.Charts.LineChart
         // Using a DependencyProperty as the backing store for PlotHeight.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty PlotHeightProperty =
             DependencyProperty.Register("PlotHeight", typeof(double),
-                typeof(BasicChart), new PropertyMetadata(170d));
+                typeof(LineChart), new PropertyMetadata(170d));
         #endregion
 
         #region "Color generator"

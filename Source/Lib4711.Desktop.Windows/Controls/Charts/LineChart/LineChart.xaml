@@ -22,7 +22,7 @@
 
         <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" 
                    FontSize="16" FontWeight="ExtraBold" TextAlignment="Center" 
-                   Text="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:BasicChart}}, Path=ChartTitle}"></TextBlock>
+                   Text="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:LineChart}}, Path=ChartTitle}"></TextBlock>
 
         <Border x:FieldModifier="private" x:Name="PlotAreaBorder" 
                 SizeChanged="PlotAreaBorder_SizeChanged" 
