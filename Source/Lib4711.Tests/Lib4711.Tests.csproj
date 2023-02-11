@@ -19,4 +19,15 @@
     </PackageReference>
   </ItemGroup>
 
+	<ItemGroup>
+		<FrameworkReference Include="Microsoft.AspNetCore.App" Version="6.0.13" />
+		<!--<FrameworkReference Include="Microsoft.NETCore.App" Version="2.2.8" />-->
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Lib4711.Blazor\Lib4711.Blazor.csproj" />
+	  <ProjectReference Include="..\Lib4711.Core\Lib4711.Core.csproj" />
+	  <ProjectReference Include="..\Lib4711.Server\Lib4711.Server.csproj" />
+	</ItemGroup>
+
 </Project>

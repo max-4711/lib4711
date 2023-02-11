@@ -1,12 +1,18 @@
 <Project>
-<PropertyGroup>
-    <LibVersion>1.0.2</LibVersion>
+    <PropertyGroup>
+        <LibVersion>1.0.2</LibVersion>
 
-    <PackageVersion>$(LibVersion)</PackageVersion>
-    <AssemblyVersion>$(LibVersion)</AssemblyVersion>
-    <FileVersion>$(LibVersion)</FileVersion>
-    <RepositoryUrl>https://github.com/max-4711/lib4711</RepositoryUrl>
-    <Description>A very basic application development support library.</Description>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-</PropertyGroup>
+        <PackageVersion>$(LibVersion)</PackageVersion>
+        <AssemblyVersion>$(LibVersion)</AssemblyVersion>
+        <FileVersion>$(LibVersion)</FileVersion>
+        <RepositoryUrl>https://github.com/max-4711/lib4711</RepositoryUrl>
+        <Description>A very basic application development support library.</Description>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+            <_Parameter1>Lib4711.Tests</_Parameter1>
+        </AssemblyAttribute>
+    </ItemGroup>
 </Project>
