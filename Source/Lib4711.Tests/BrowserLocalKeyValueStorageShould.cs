@@ -12,7 +12,7 @@ namespace Lib4711.Tests
 
         private readonly string STORAGE_AND_KEY_NAME = $"{SAMPLE_STORAGE_NAME}_{SAMPLE_KEY}";
 
-        private Mock<ProtectedBrowserStorage> browserStorageMock;
+        private Mock<ProtectedBrowserStorage>? browserStorageMock;
 
         [TestInitialize]
         public void TestSetup()

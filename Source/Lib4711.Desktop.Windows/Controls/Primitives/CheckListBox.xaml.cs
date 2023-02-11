@@ -5,7 +5,7 @@ namespace Lib4711.Desktop.Windows.Controls.Primitives
 {
     public partial class CheckListBox : UserControl
     {
-        public event EventHandler<SelectionChangedEventArgs> ItemSelectionChanged;
+        public event EventHandler<SelectionChangedEventArgs>? ItemSelectionChanged;
 
         public IList SelectedItems => this.CoreListBox.SelectedItems;
         public IEnumerable ItemsSource

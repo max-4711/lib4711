@@ -45,9 +45,9 @@ namespace Lib4711.Desktop.Windows.Controls.Charts.LineChart
             DependencyProperty.Register("CurveVisibility", typeof(ObservableCollection<GraphVisibility>),
                 typeof(LineChart), new PropertyMetadata(new ObservableCollection<GraphVisibility>()));
 
-        private static object GetPropValue(object src, string propName)
+        private static object? GetPropValue(object src, string propName)
         {
-            return src.GetType().GetProperty(propName).GetValue(src, null);
+            return src.GetType()?.GetProperty(propName)?.GetValue(src, null);
         }
 
         public static void Redraw(LineChart basicChart)
@@ -73,11 +73,10 @@ namespace Lib4711.Desktop.Windows.Controls.Charts.LineChart
                 if (MyClass.ItemsSource == null) return;
                 foreach (var ClassItem in MyClass.ItemsSource)
                 {
-
-                    IEnumerable MyCollectionItem = (IEnumerable)GetPropValue(ClassItem, MyClass.DataCollectionName);
-                    foreach (var item in MyCollectionItem)
+                    IEnumerable collectionItem = GetPropValue(ClassItem, MyClass.DataCollectionName) as IEnumerable ?? new object[] {};
+                    foreach (var item in collectionItem)
                     {
-                        double value = (double)GetPropValue(item, MyClass.DisplayMemberValues);
+                        double value = GetPropValue(item, MyClass.DisplayMemberValues) as double? ?? 0.0d;
                         if (value < TempYMin)
                             TempYMin = value;
 
@@ -106,7 +105,7 @@ namespace Lib4711.Desktop.Windows.Controls.Charts.LineChart
             }
         }
 
-        public static void SetUpGraph(LineChart sender, IEnumerable ItemsSource)
+        public static void SetUpGraph(LineChart sender, IEnumerable? ItemsSource)
         {
             List<PointCollection> ListOfChartCurves = new List<PointCollection>();
             List<double> origianlValues = new List<double>();
@@ -114,61 +113,61 @@ namespace Lib4711.Desktop.Windows.Controls.Charts.LineChart
             if (ItemsSource == null) return;
 
             //Loop trough all the sources
-            foreach (var ClassItem in ItemsSource)
+            foreach (object? classItem in ItemsSource)
             {
-                PointCollection PointsOnChart = new PointCollection();
-                int X = 0;
+                PointCollection pointsOnChart = new PointCollection();
+                int x = 0;
 
                 // Get the Collection of dataitems from the current source
-                IEnumerable MyCollectionItem = (IEnumerable)GetPropValue(ClassItem, sender.DataCollectionName);
+                IEnumerable collectionItems = GetPropValue(classItem, sender.DataCollectionName) as IEnumerable ?? new object[] {};
 
                 // For all the chart points, get the relevant Y values
-                foreach (var item in MyCollectionItem)
+                foreach (object? item in collectionItems)
                 {
-                    var YValues = GetPropValue(item, sender.DisplayMemberValues);
+                    object? yValues = GetPropValue(item, sender.DisplayMemberValues);
 
                     // No X value filters are applied
                     if (sender.XMin == sender.XMax)
                     {
 
-                        if (YValues is double)
+                        if (yValues is double)
                         {
-                            origianlValues.Add((double)YValues);
-                            if (double.IsInfinity((double)YValues) || double.IsNaN((double)YValues) || double.IsNegativeInfinity((double)YValues) || double.IsPositiveInfinity((double)YValues))
+                            origianlValues.Add((double)yValues);
+                            if (double.IsInfinity((double)yValues) || double.IsNaN((double)yValues) || double.IsNegativeInfinity((double)yValues) || double.IsPositiveInfinity((double)yValues))
                             {
-                                PointsOnChart.Add(new Point(0, double.NaN));
+                                pointsOnChart.Add(new Point(0, double.NaN));
 
                             }
                             else
                             {
-                                double YValue = ((double)YValues - sender.YMin) / (sender.YMax - sender.YMin) * sender.PlotHeight;
-                                PointsOnChart.Add(new Point(0, YValue));
+                                double YValue = ((double)yValues - sender.YMin) / (sender.YMax - sender.YMin) * sender.PlotHeight;
+                                pointsOnChart.Add(new Point(0, YValue));
                             }
                         }
                     }
-                    else if (sender.XMin <= X && X <= sender.XMax)
+                    else if (sender.XMin <= x && x <= sender.XMax)
                     {
 
-                        if (YValues is double)
+                        if (yValues is double)
                         {
-                            origianlValues.Add((double)YValues);
-                            if (double.IsInfinity((double)YValues) || double.IsNaN((double)YValues) || double.IsNegativeInfinity((double)YValues) || double.IsPositiveInfinity((double)YValues))
+                            origianlValues.Add((double)yValues);
+                            if (double.IsInfinity((double)yValues) || double.IsNaN((double)yValues) || double.IsNegativeInfinity((double)yValues) || double.IsPositiveInfinity((double)yValues))
                             {
-                                PointsOnChart.Add(new Point(0, double.NaN));
+                                pointsOnChart.Add(new Point(0, double.NaN));
 
                             }
                             else
                             {
-                                double YValue = ((double)YValues - sender.YMin) / (sender.YMax - sender.YMin) * sender.PlotHeight;
-                                PointsOnChart.Add(new Point(0, YValue));
+                                double YValue = ((double)yValues - sender.YMin) / (sender.YMax - sender.YMin) * sender.PlotHeight;
+                                pointsOnChart.Add(new Point(0, YValue));
                             }
                         }
                     }
 
 
-                    X++;
+                    x++;
                 }
-                ListOfChartCurves.Add(PointsOnChart);
+                ListOfChartCurves.Add(pointsOnChart);
             }
 
             ObservableCollection<FrameworkElement> items = new ObservableCollection<FrameworkElement>();
@@ -297,7 +296,7 @@ namespace Lib4711.Desktop.Windows.Controls.Charts.LineChart
             if (MyBasicChart.DisplayMemberValues != "" && MyBasicChart.DataCollectionName != "")
             {
                 SetUpYAxis(MyBasicChart);
-                SetUpGraph(MyBasicChart, (IEnumerable)e.NewValue);
+                SetUpGraph(MyBasicChart, e.NewValue as IEnumerable);
             }
             else
             {
